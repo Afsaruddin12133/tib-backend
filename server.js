@@ -14,8 +14,8 @@ const { notFoundHandler, errorHandler } = require("./middleware/errorHandler");
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Frontend origin allowed for CORS. Set this in production to your exact frontend URL.
-const frontendOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+// Frontend origin allowed for CORS. Normalize it so a trailing slash does not break strict CORS checks.
+const frontendOrigin = (process.env.FRONTEND_ORIGIN || "http://localhost:5173").replace(/\/+$/, "");
 
 // Basic middleware: CORS and body parsing.
 // Note: the `origin` should be strict in production (do not use '*').
